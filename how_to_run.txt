@@ -1,0 +1,112 @@
+HOW TO RUN THE AI SEO LAB (Windows PowerShell)
+===============================================
+Project folder: C:\Users\User\projects\ai_seo_lab
+
+You need 3 things running, each in its own terminal window:
+  1) The .NET + React website      -> http://127.0.0.1:5055
+  2) Ollama (local AI)             -> http://127.0.0.1:11434
+  3) The Python Streamlit dashboard -> http://localhost:8501
+
+
+-----------------------------------------------
+ONE-TIME SETUP (only the first time)
+-----------------------------------------------
+
+A) Build the React frontend
+   cd C:\Users\User\projects\ai_seo_lab\dotnet\SeoDemoSite\ClientApp
+   npm install
+   npm run build
+
+B) Create the Python virtual environment and install packages
+   cd C:\Users\User\projects\ai_seo_lab\python
+   py -3.13 -m venv .venv
+   .venv\Scripts\python.exe -m pip install --upgrade pip
+   .venv\Scripts\python.exe -m pip install -r requirements.txt
+   copy .env.example .env
+
+   Then open python\.env and make sure this line is set:
+   OLLAMA_MODEL=qwen2.5:3b
+
+C) Download the AI model (about 1.9 GB)
+   & "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe" pull qwen2.5:3b
+
+
+-----------------------------------------------
+EVERY TIME YOU WANT TO RUN IT
+-----------------------------------------------
+
+TERMINAL 1 - the .NET website
+   cd C:\Users\User\projects\ai_seo_lab\dotnet\SeoDemoSite
+   dotnet run
+
+   Open: http://127.0.0.1:5055
+   Leave this window open. Press Ctrl+C to stop it.
+
+   (If you changed React code first, rebuild it:)
+   cd ClientApp
+   npm run build
+   cd ..
+   dotnet run
+
+TERMINAL 2 - Ollama (local AI)
+   Ollama normally starts by itself with Windows (look for the llama icon in the
+   system tray). To check that it is running:
+   & "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe" list
+
+   If it is not running, start it:
+   & "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe" serve
+
+TERMINAL 3 - the Python dashboard
+   cd C:\Users\User\projects\ai_seo_lab\python
+   .venv\Scripts\python.exe -m streamlit run streamlit_app.py
+
+   Open: http://localhost:8501
+   Pages: Home, Crawl Audit, Content Optimizer, Approval Queue,
+          SEO Concepts, Competitor Benchmark, Connections, SEO Dashboard
+   Connections page: links and forms to connect GitHub, Vercel and Google
+   (Search Console / Analytics). Tokens are saved to python\.env on this PC only.
+   Press Ctrl+C in the window to stop it.
+
+   (Optional, if PowerShell allows activating the environment:)
+   .venv\Scripts\Activate.ps1
+   streamlit run streamlit_app.py
+
+
+-----------------------------------------------
+QUICK CHECKS
+-----------------------------------------------
+   Website is up:      Invoke-WebRequest http://127.0.0.1:5055/api/pages -UseBasicParsing
+   Ollama is up:       Invoke-WebRequest http://127.0.0.1:11434 -UseBasicParsing
+   Dashboard is up:    Invoke-WebRequest http://localhost:8501 -UseBasicParsing
+
+
+-----------------------------------------------
+STOPPING EVERYTHING
+-----------------------------------------------
+   Press Ctrl+C in the website and dashboard terminals, or:
+   Get-Process SeoDemoSite -ErrorAction SilentlyContinue | Stop-Process
+   Get-Process streamlit -ErrorAction SilentlyContinue | Stop-Process
+
+
+-----------------------------------------------
+RESET TEST DATA
+-----------------------------------------------
+   Stop the website and the dashboard first, then:
+   Remove-Item C:\Users\User\projects\ai_seo_lab\dotnet\SeoDemoSite\site-data.json   # restores the original page content
+   Remove-Item C:\Users\User\projects\ai_seo_lab\data\seo_lab.db                      # clears saved proposals
+   Remove-Item C:\Users\User\projects\ai_seo_lab\data\benchmark*.json                 # clears benchmark results and score history
+
+
+-----------------------------------------------
+TROUBLESHOOTING
+-----------------------------------------------
+ - "npm.ps1 cannot be loaded because running scripts is disabled": use npm.cmd instead of npm
+   (no security setting needs changing), for example:
+       npm.cmd install
+       npm.cmd run build
+   Also note: "npm run build" must be run inside dotnet\SeoDemoSite\ClientApp, not in dotnet\SeoDemoSite.
+ - "Cannot read pages from the .NET demo site": the website (terminal 1) is not running.
+ - "Cannot connect to Ollama": start Ollama (terminal 2) and confirm "ollama list" shows qwen2.5:3b.
+ - "Frontend not built" page in the browser: run "npm install" then "npm run build" in dotnet\SeoDemoSite\ClientApp.
+ - Port already in use (5055 or 8501): an old copy is still running. Stop it with the commands in the STOPPING section.
+ - The first AI analysis can take 30-60 seconds while the model loads into memory.

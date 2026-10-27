@@ -1,0 +1,102 @@
+{
+  "created_at": "2026-10-16T09:12:26+00:00",
+  "local_site": "127.0.0.1:5055",
+  "competitors": [
+    "japan.travel",
+    "lonelyplanet.com",
+    "nomadicmatt.com",
+    "roughguides.com"
+  ],
+  "local_summary": {
+    "pages": 15.0,
+    "score": 73.5,
+    "title_len": 40.4,
+    "desc_len": 113.7,
+    "h2_count": 3.9,
+    "word_count": 150.8,
+    "image_count": 1.2,
+    "alt_coverage": 100.0,
+    "internal_links": 10.5,
+    "external_links": 0.5,
+    "url_depth": 1.5,
+    "has_jsonld": 0.0,
+    "has_canonical": 100.0
+  },
+  "competitor_average": {
+    "pages": 3.0,
+    "score": 84.75,
+    "title_len": 50.0,
+    "desc_len": 130.325,
+    "h2_count": 7.425,
+    "word_count": 1865.25,
+    "image_count": 53.400000000000006,
+    "alt_coverage": 84.75,
+    "internal_links": 273.9,
+    "external_links": 118.675,
+    "url_depth": 1.25,
+    "has_jsonld": 75.0,
+    "has_canonical": 100.0
+  },
+  "insights": [
+    {
+      "area": "Content depth (words)",
+      "local": "151",
+      "competitors": "1865",
+      "recommendation": "Competitor pages are much longer. Add verifiable detail (practical tips, what to check, how to plan) in the page's own words; do not pad.",
+      "priority": "high"
+    },
+    {
+      "area": "Subheadings (H2)",
+      "local": "3.9",
+      "competitors": "7.4",
+      "recommendation": "Competitors break topics into more sections. Add descriptive subheadings.",
+      "priority": "medium"
+    },
+    {
+      "area": "Structured data (% pages)",
+      "local": "0",
+      "competitors": "75",
+      "recommendation": "Competitors publish JSON-LD. Add schema.org markup to the site template (developer task).",
+      "priority": "medium"
+    },
+    {
+      "area": "Images per page",
+      "local": "1.2",
+      "competitors": "53.4",
+      "recommendation": "Competitors use more imagery. Add relevant images with alt text.",
+      "priority": "low"
+    },
+    {
+      "area": "Internal links",
+      "local": "10",
+      "competitors": "274",
+      "recommendation": "Link related guides together so visitors and crawlers can navigate between topics.",
+      "priority": "low"
+    },
+    {
+      "area": "Overall SEO score",
+      "local": "74",
+      "competitors": "85",
+      "recommendation": "Work through the high-priority items above; re-run the benchmark afterwards to see the score change.",
+      "priority": "info"
+    }
+  ],
+  "keyword_gaps": [
+    {
+      "term": "eastern",
+      "competitor_sites": 2
+    },
+    {
+      "term": "inspiration",
+      "competitor_sites": 2
+    },
+    {
+      "term": "journeys",
+      "competitor_sites": 2
+    },
+    {
+      "term": "site",
+      "competitor_sites": 2
+    }
+  ]
+}
